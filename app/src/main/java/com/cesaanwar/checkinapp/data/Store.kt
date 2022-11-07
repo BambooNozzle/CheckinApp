@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "store")
+@Entity(tableName = "store", primaryKeys = ["localStoreId", "storeId"])
 data class Store(
-    @PrimaryKey
+    var localStoreId: Long = 0,
     @SerializedName("store_id")
     val storeId: String,
     @SerializedName("store_name")

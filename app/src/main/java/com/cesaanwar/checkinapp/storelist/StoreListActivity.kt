@@ -1,5 +1,6 @@
 package com.cesaanwar.checkinapp.storelist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import com.cesaanwar.checkinapp.data.Result
 import com.cesaanwar.checkinapp.data.Result.Success
 import com.cesaanwar.checkinapp.data.Result.Error
 import com.cesaanwar.checkinapp.databinding.ActivityStoreListBinding
+import com.cesaanwar.checkinapp.storepage.StorePageActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -37,7 +39,7 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupAdapter() {
-        adapter = StoreAdapter()
+        adapter = StoreAdapter(viewModel)
         binding.rvStores.adapter = adapter
     }
 
@@ -52,6 +54,13 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 }
             }
+        }
+        viewModel.storeVisitEventLiveData.observe(this) { event ->
+            val store = event.peekContent()
+            val intent = Intent(this, StorePageActivity::class.java)
+            intent.putExtra(StorePageActivity.LOCAL_STORE_ID, store.localStoreId)
+            intent.putExtra(StorePageActivity.STORE_ID, store.storeId)
+            startActivity(intent)
         }
     }
 

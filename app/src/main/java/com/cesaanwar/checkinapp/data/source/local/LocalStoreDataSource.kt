@@ -11,4 +11,9 @@ class LocalStoreDataSource(
 
     override suspend fun getAllStores(): List<Store> = storeDao.getAllStores()
 
+    override suspend fun getStoreByLocalStoreIdAndStoreId(
+        localStoreId: Long,
+        storeId: String
+    ): Store = storeDao.getStoreByLocalStoreIdAndStoreId(localStoreId, storeId)
+
 }

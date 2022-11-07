@@ -18,4 +18,7 @@ interface StoreDao {
     @Query("select * from store")
     suspend fun getAllStores(): List<Store>
 
+    @Query("select * from store where localStoreId = :localStoreId and storeId = :storeId")
+    suspend fun getStoreByLocalStoreIdAndStoreId(localStoreId: Long, storeId: String): Store
+
 }

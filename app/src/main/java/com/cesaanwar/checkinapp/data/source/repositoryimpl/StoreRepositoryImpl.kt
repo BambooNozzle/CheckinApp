@@ -18,4 +18,11 @@ class StoreRepositoryImpl(
         localStoreDataSource.getAllStores()
     }
 
+    override suspend fun getStoreByLocalStoreIdAndStoreId(
+        localStoreId: Long,
+        storeId: String
+    ): Store = withContext(Dispatchers.IO) {
+        localStoreDataSource.getStoreByLocalStoreIdAndStoreId(localStoreId, storeId)
+    }
+
 }

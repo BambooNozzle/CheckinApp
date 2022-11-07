@@ -17,6 +17,9 @@ class PostLoginUseCase @Inject constructor(
         return try {
             val request = LoginRequest(username, password)
             val response = loginRepository.postLogin(request.getRequestBody())
+            response.stores.forEachIndexed { index, store ->
+                store.localStoreId = (index + 1).toLong()
+            }
             storeRepository.insertStores(response.stores)
             Success(response.message)
         } catch (e: Exception) {

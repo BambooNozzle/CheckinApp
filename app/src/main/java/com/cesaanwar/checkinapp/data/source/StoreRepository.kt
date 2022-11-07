@@ -8,4 +8,6 @@ interface StoreRepository {
 
     suspend fun getAllStores(): List<Store>
 
+    suspend fun getStoreByLocalStoreIdAndStoreId(localStoreId: Long, storeId: String): Store
+
 }

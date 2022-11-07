@@ -9,7 +9,9 @@ import com.cesaanwar.checkinapp.data.Store
 import com.cesaanwar.checkinapp.databinding.ItemStoreBinding
 import com.cesaanwar.checkinapp.uimodel.StoreUIModel
 
-class StoreAdapter: ListAdapter<StoreUIModel, StoreAdapter.StoreViewHolder>(StoreDiffUtil()) {
+class StoreAdapter(
+    private val viewModel: StoreListViewModel
+): ListAdapter<StoreUIModel, StoreAdapter.StoreViewHolder>(StoreDiffUtil()) {
 
     class StoreViewHolder(val binding: ItemStoreBinding): ViewHolder(binding.root) {
         companion object {
@@ -30,6 +32,9 @@ class StoreAdapter: ListAdapter<StoreUIModel, StoreAdapter.StoreViewHolder>(Stor
         val binding = holder.binding
         val item = getItem(position)
         binding.item = item
+        binding.root.setOnClickListener {
+            viewModel.visitStore(item)
+        }
     }
 
 }
