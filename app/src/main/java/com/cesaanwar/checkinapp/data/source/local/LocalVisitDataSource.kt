@@ -12,11 +12,12 @@ class LocalVisitDataSource(
         visitDao.insertVisit(visit)
     }
 
-    override suspend fun getVisitByStoreIdAndTime(
-        storeId: String,
-        visitDateMilis: Long
-    ): List<Visit> {
-        return visitDao.getVisitsByStoreAndTime(storeId, visitDateMilis)
+    override suspend fun getVisitByStoreIdAndTime(visitDateMilis: Long): List<Visit> {
+        return visitDao.getVisitsByStoreAndTime(visitDateMilis)
+    }
+
+    override suspend fun getLatestVisitsByStore(localStoreId: Long, storeId: String): Visit? {
+        return visitDao.getLatestVisitsByStore(localStoreId, storeId)
     }
 
 }

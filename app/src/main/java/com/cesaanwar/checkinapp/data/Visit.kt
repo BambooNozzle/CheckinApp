@@ -10,5 +10,6 @@ data class Visit(
     val id: Long = 0,
     val localStoreId: Long,
     val storeId: String,
-    val visitTimeMilis: Long
+    val visitTimeMilis: Long,
+    val isActive: Boolean = false
 )

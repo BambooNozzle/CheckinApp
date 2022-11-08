@@ -6,6 +6,8 @@ interface VisitDataSource {
 
     suspend fun registerVisit(visit: Visit)
 
-    suspend fun getVisitByStoreIdAndTime(storeId: String, visitDateMilis: Long): List<Visit>
+    suspend fun getVisitByStoreIdAndTime(visitDateMilis: Long): List<Visit>
+
+    suspend fun getLatestVisitsByStore(localStoreId: Long, storeId: String): Visit?
 
 }

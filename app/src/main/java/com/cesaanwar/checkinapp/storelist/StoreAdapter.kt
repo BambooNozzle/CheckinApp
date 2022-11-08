@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.cesaanwar.checkinapp.data.Store
 import com.cesaanwar.checkinapp.databinding.ItemStoreBinding
-import com.cesaanwar.checkinapp.uimodel.StoreUIModel
+import com.cesaanwar.checkinapp.uimodel.StoreListUIModel
 
 class StoreAdapter(
     private val viewModel: StoreListViewModel
-): ListAdapter<StoreUIModel, StoreAdapter.StoreViewHolder>(StoreDiffUtil()) {
+): ListAdapter<StoreListUIModel, StoreAdapter.StoreViewHolder>(StoreDiffUtil()) {
 
     class StoreViewHolder(val binding: ItemStoreBinding): ViewHolder(binding.root) {
         companion object {
@@ -39,12 +38,12 @@ class StoreAdapter(
 
 }
 
-class StoreDiffUtil: DiffUtil.ItemCallback<StoreUIModel>() {
-    override fun areItemsTheSame(oldItem: StoreUIModel, newItem: StoreUIModel): Boolean {
+class StoreDiffUtil: DiffUtil.ItemCallback<StoreListUIModel>() {
+    override fun areItemsTheSame(oldItem: StoreListUIModel, newItem: StoreListUIModel): Boolean {
         return oldItem.storeId == newItem.storeId
     }
 
-    override fun areContentsTheSame(oldItem: StoreUIModel, newItem: StoreUIModel): Boolean {
+    override fun areContentsTheSame(oldItem: StoreListUIModel, newItem: StoreListUIModel): Boolean {
         return oldItem == newItem
     }
 }

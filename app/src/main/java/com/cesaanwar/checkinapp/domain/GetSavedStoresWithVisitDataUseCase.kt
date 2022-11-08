@@ -1,7 +1,8 @@
 package com.cesaanwar.checkinapp.domain
 
+import android.location.Location
 import com.cesaanwar.checkinapp.data.source.StoreRepository
-import com.cesaanwar.checkinapp.uimodel.StoreUIModel
+import com.cesaanwar.checkinapp.uimodel.StoreListUIModel
 import com.cesaanwar.checkinapp.data.Result
 import com.cesaanwar.checkinapp.data.Result.Success
 import com.cesaanwar.checkinapp.data.Result.Error
@@ -21,12 +22,12 @@ class GetSavedStoresWithVisitDataUseCase @Inject constructor(
     private val visitRepository: VisitRepository
 ) {
 
-    suspend fun getAllSavedStores(): Result<List<StoreUIModel>> {
+    suspend fun getAllSavedStores(location: Location): Result<List<StoreListUIModel>> {
         return try {
             return withContext(Dispatchers.IO) {
                 val defers = mutableListOf(
                     async { storeRepository.getAllStores() },
-                    async { visitRepository.getVisitByStoreIdAndTime("1", DateHelper.getCurrentDateMilisWithoutTime()) }
+                    async { visitRepository.getVisitByStoreIdAndTime(DateHelper.getCurrentDateMilisWithoutTime()) }
                 )
                 val results = defers.awaitAll()
                 val stores = mutableListOf<Store>()
@@ -40,7 +41,7 @@ class GetSavedStoresWithVisitDataUseCase @Inject constructor(
                         }
                     }
                 }
-                Success(StoreToStoreUIModelMapper.mapStoreToStoreUIModel(stores, visits))
+                Success(StoreToStoreUIModelMapper.mapStoreToStoreUIModel(stores, visits, location))
             }
         } catch (e: Exception) {
             Error(e)

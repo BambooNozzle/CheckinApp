@@ -14,11 +14,12 @@ class VisitRepositoryImpl(
         localVisitDataSource.registerVisit(visit)
     }
 
-    override suspend fun getVisitByStoreIdAndTime(
-        storeId: String,
-        visitDateMilis: Long
-    ): List<Visit> = withContext(Dispatchers.IO) {
-        localVisitDataSource.getVisitByStoreIdAndTime(storeId, visitDateMilis)
+    override suspend fun getVisitByStoreIdAndTime(visitDateMilis: Long): List<Visit> = withContext(Dispatchers.IO) {
+        localVisitDataSource.getVisitByStoreIdAndTime(visitDateMilis)
+    }
+
+    override suspend fun getLatestVisitsByStore(localStoreId: Long, storeId: String): Visit? = withContext(Dispatchers.IO) {
+        localVisitDataSource.getLatestVisitsByStore(localStoreId, storeId)
     }
 
 }

@@ -12,7 +12,10 @@ interface VisitDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertVisit(vararg visits: Visit)
 
-    @Query("select * from visit where storeId = :storeId and visitTimeMilis > :visitDateMilis")
-    suspend fun getVisitsByStoreAndTime(storeId: String, visitDateMilis: Long): List<Visit>
+    @Query("select * from visit where visitTimeMilis > :visitDateMilis")
+    suspend fun getVisitsByStoreAndTime(visitDateMilis: Long): List<Visit>
+
+    @Query("select * from visit where localStoreId = :localStoreId and storeId = :storeId order by visitTimeMilis desc limit 1")
+    suspend fun getLatestVisitsByStore(localStoreId: Long, storeId: String): Visit?
 
 }

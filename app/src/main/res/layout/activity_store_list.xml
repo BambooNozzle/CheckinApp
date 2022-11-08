@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
+    <data>
+        <variable
+            name="dateInfo"
+            type="String" />
+    </data>
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,7 +25,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="List Kunjungan dd-MM-yyyy"
+            android:text="@{@string/list_kunjungan_info(dateInfo)}"
+            android:textStyle="bold"
             android:padding="8dp"
             />
 

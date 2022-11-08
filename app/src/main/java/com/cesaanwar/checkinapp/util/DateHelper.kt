@@ -11,4 +11,14 @@ object DateHelper {
         return dateWithoutTime?.time ?: -1L
     }
 
+    fun getCurrentDateInfoString(): String {
+        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        return sdf.format(Date())
+    }
+
+    fun getDateInfoStringFromMilis(milis: Long): String {
+        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        return sdf.format(Date(milis))
+    }
+
 }

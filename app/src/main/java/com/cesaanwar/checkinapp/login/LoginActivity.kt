@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.cesaanwar.checkinapp.R
+import com.cesaanwar.checkinapp.data.Result
 import com.cesaanwar.checkinapp.databinding.ActivityLoginBinding
 import com.cesaanwar.checkinapp.storelist.StoreListActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +22,19 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.button.setOnClickListener {
             viewModel.login("pitjarus", "admin")
-            val intent = Intent(this, StoreListActivity::class.java)
-            startActivity(intent)
+        }
+        setupObservables()
+    }
+
+    private fun setupObservables() {
+        viewModel.loginLiveData.observe(this) {
+            when (it) {
+                is Result.Success -> {
+                    val intent = Intent(this, StoreListActivity::class.java)
+                    startActivity(intent)
+                }
+                else -> {}
+            }
         }
     }
 }

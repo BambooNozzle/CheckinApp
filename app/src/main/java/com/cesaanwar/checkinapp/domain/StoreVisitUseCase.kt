@@ -12,12 +12,13 @@ class StoreVisitUseCase @Inject constructor(
     private val visitRepository: VisitRepository
 ) {
 
-    suspend fun storeVisitData(store: Store): Result<Boolean> {
+    suspend fun storeVisitData(localStoreId: Long, storeId: String): Result<Boolean> {
         return try {
             val visitData = Visit(
-                localStoreId = store.localStoreId,
-                storeId = store.storeId,
-                visitTimeMilis = System.currentTimeMillis()
+                localStoreId = localStoreId,
+                storeId = storeId,
+                visitTimeMilis = System.currentTimeMillis(),
+                isActive = true
             )
             visitRepository.registerVisit(visitData)
             Success(true)

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
+        <import type="android.view.View"/>
+        <import type="com.cesaanwar.checkinapp.util.ExtensionsKt"/>
         <variable
             name="item"
-            type="com.cesaanwar.checkinapp.uimodel.StoreUIModel" />
+            type="com.cesaanwar.checkinapp.uimodel.StoreListUIModel" />
     </data>
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -31,21 +33,32 @@
                     android:id="@+id/tv_store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Toko A"
-                    android:text="@{item.storeId}"
+                    android:text="@{item.storeName}"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Toko A" />
 
                 <TextView
                     android:id="@+id/tv_channel_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{item.subTitle}"
-                    tools:text="TT Reguler - IRTM Big Store"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_store_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_store_name"
+                    tools:text="TT Reguler - IRTM Big Store" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/checkbox_marked_circle"
+                    android:visibility="@{item.hasBeenVisited ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_store_name"
+                    app:layout_constraintStart_toEndOf="@+id/tv_store_name"
+                    app:layout_constraintTop_toTopOf="@+id/tv_store_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
