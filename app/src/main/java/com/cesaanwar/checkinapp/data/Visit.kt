@@ -11,5 +11,5 @@ data class Visit(
     val localStoreId: Long,
     val storeId: String,
     val visitTimeMilis: Long,
-    val isActive: Boolean = false
+    var isActive: Boolean = false
 )

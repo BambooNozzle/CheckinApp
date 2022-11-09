@@ -24,7 +24,7 @@ class StoreListViewModel @Inject constructor(
     private val _storeVisitEventLiveData = MutableLiveData<Event<StoreListUIModel>>()
     val storeVisitEventLiveData : LiveData<Event<StoreListUIModel>> = _storeVisitEventLiveData
 
-    fun getStores(location: Location) {
+    fun getStores(location: Location?) {
         viewModelScope.launch {
             val result = getSavedStoresWithVisitDataUseCase.getAllSavedStores(location)
             _storeListUIModelLiveData.value = result

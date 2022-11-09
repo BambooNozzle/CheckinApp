@@ -22,7 +22,7 @@ class GetSavedStoresWithVisitDataUseCase @Inject constructor(
     private val visitRepository: VisitRepository
 ) {
 
-    suspend fun getAllSavedStores(location: Location): Result<List<StoreListUIModel>> {
+    suspend fun getAllSavedStores(location: Location?): Result<List<StoreListUIModel>> {
         return try {
             return withContext(Dispatchers.IO) {
                 val defers = mutableListOf(

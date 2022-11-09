@@ -1,6 +1,10 @@
 <resources>
+
+    <string name="API_KEY">{{API_KEY_HERE}}</string>
+
     <string name="app_name">CheckinApp</string>
     <string name="list_kunjungan_info">List Kunjungan %s</string>
     <string name="store_area_info">Area: %s</string>
     <string name="store_region_info">Region: %s</string>
+    <string name="store_channel_info">Channel: %s</string>
 </resources>

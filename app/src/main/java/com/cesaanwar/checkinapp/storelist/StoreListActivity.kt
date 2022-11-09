@@ -20,7 +20,6 @@ import com.cesaanwar.checkinapp.R
 import com.cesaanwar.checkinapp.data.Result.Success
 import com.cesaanwar.checkinapp.databinding.ActivityStoreListBinding
 import com.cesaanwar.checkinapp.storepage.StorePageActivity
-import com.cesaanwar.checkinapp.uimodel.mapper.StoreToStoreUIModelMapper
 import com.cesaanwar.checkinapp.util.DateHelper
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -54,7 +53,7 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
     private var map: GoogleMap? = null
 
     companion object {
-        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 543
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +61,7 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_store_list)
         binding.dateInfo = DateHelper.getCurrentDateInfoString()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        getLocationPermission()
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
         createLocationRequest()
@@ -85,7 +85,6 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
                     lastKnownLocation = it.result
                     lastKnownLocation?.let { location ->
                         setupMap(location)
-                        viewModel.getStores(location)
                     }
                 }
 
@@ -147,6 +146,7 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onResume()
         binding.mapView.onResume()
         startLocationUpdates()
+        viewModel.getStores(lastKnownLocation)
     }
 
     override fun onPause() {
@@ -258,6 +258,23 @@ class StoreListActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                locationPermissionGranted = true
+
+                setupLocation()
+
+                updateLocationUI()
+            }
         }
     }
 

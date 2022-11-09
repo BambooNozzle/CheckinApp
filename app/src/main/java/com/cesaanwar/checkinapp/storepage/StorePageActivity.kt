@@ -44,6 +44,9 @@ class StorePageActivity : AppCompatActivity() {
         binding.btnVisit.setOnClickListener {
             startCameraIntent()
         }
+        binding.btnNoVisit.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun startCameraIntent() {
@@ -73,7 +76,7 @@ class StorePageActivity : AppCompatActivity() {
                     binding.model = storeUIModel
                 }
                 else -> {
-                    Toast.makeText(this, "Gagal", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
         }

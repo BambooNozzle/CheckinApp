@@ -25,13 +25,14 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:enableOnBackInvokedCallback="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CheckinApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".StoreDashboardActivity"
+            android:name=".storedashboard.StoreDashboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -74,7 +75,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="@string/API_KEY" />
     </application>
 
 </manifest>
